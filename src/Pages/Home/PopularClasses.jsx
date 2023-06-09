@@ -4,7 +4,7 @@ import ClassCard from "../../Components/ClassCard";
 
 const PopularClasses = () => {
   const [classes, setClasses] = useState([]);
-  console.log(classes);
+  // console.log(classes);
   useEffect(() => {
     fetch("http://localhost:3030/classes")
       .then((res) => res.json())
@@ -14,7 +14,7 @@ const PopularClasses = () => {
     (a, b) => b.enrolledStudents - a.enrolledStudents
   );
   const topClasses = sortedClasses.slice(0, 6);
-  console.log(topClasses);
+  // console.log(topClasses);
   return (
     <div className="my-14 container mx-auto">
       <SectionHeader

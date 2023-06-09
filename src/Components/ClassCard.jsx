@@ -28,7 +28,7 @@ const ClassCard = ({ singleClass }) => {
         Available Seat: {availableSeat}
       </p>
       <div className="flex-grow"></div>
-      <button className="btn btn-outline mt-3">Add to Wishlist</button>
+
       <button className="btn btn-primary mt-2 text-white">View Details</button>
     </div>
   );
