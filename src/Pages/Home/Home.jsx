@@ -1,9 +1,10 @@
 import React from "react";
+import HeroArea from "./HeroArea";
 
 const Home = () => {
   return (
     <div>
-      <h1 className="py-96">This is home page </h1>
+      <HeroArea></HeroArea>
     </div>
   );
 };

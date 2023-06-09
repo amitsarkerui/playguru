@@ -3,11 +3,11 @@ import logoSymbol from "../assets/logo/Logo-symbol.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-white">
-      <div className="mx-auto max-w-screen-xl px-2 py-16 sm:px-6 lg:px-8">
+    <footer className="bg-white container mx-auto">
+      <div className="mx-auto px-2 py-16 sm:px-6 lg:px-2">
         <div className="lg:flex lg:items-start lg:gap-8">
           <div className="text-teal-600">
-            <img className="w-24" src={logoSymbol} alt="" />
+            <img className="w-20" src={logoSymbol} alt="" />
           </div>
 
           <div className="mt-8 grid grid-cols-2 gap-8 lg:mt-0 lg:grid-cols-3 lg:gap-y-16">
@@ -152,7 +152,38 @@ const Footer = () => {
                 </li>
               </ul>
             </div>
+            <div className="col-span-2 sm:col-span-1">
+              <p className="font-medium text-gray-900">Contact</p>
 
+              <ul className="mt-6 space-y-4 text-sm">
+                <li>
+                  <a
+                    href="#"
+                    className="text-gray-700 transition hover:opacity-75"
+                  >
+                    +8801706385704
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="#"
+                    className="text-gray-700 transition hover:opacity-75"
+                  >
+                    playguru@gmail.com
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="#"
+                    className="text-gray-700 transition hover:opacity-75"
+                  >
+                    12-Jessore, Bangladesh
+                  </a>
+                </li>
+              </ul>
+            </div>
             <ul className="col-span-2 flex justify-start gap-6 lg:col-span-5 lg:justify-end">
               <li>
                 <a

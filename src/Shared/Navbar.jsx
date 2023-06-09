@@ -15,8 +15,8 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white border-gray-200 dark:bg-gray-900">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <nav className="container mx-auto bg-white border-gray-200 dark:bg-gray-900">
+      <div className="flex flex-wrap items-center justify-between mx-auto py-6 px-2">
         <Link to={"/"} className="flex items-center">
           <img src={logo} className="h-12 mr-3" alt="Play Guru Logo" />
         </Link>
