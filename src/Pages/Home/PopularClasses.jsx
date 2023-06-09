@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SectionHeader from "../../Components/SectionHeader";
+import ClassCard from "../../Components/ClassCard";
 
 const PopularClasses = () => {
   const [classes, setClasses] = useState([]);
@@ -15,11 +16,19 @@ const PopularClasses = () => {
   const topClasses = sortedClasses.slice(0, 6);
   console.log(topClasses);
   return (
-    <div className="my-14">
+    <div className="my-14 container mx-auto">
       <SectionHeader
         heading={"Popular Classes"}
         subHeading={"Enroll Now"}
       ></SectionHeader>
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-6 mt-10">
+        {topClasses.map((singleClass) => (
+          <ClassCard
+            key={singleClass._id}
+            singleClass={singleClass}
+          ></ClassCard>
+        ))}
+      </div>
     </div>
   );
 };
