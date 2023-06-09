@@ -17,9 +17,9 @@ const HeroArea = () => {
         {/* -------------slider 1 ------------------ */}
         <div className="h-[700px] py-60 rounded-2xl bg-[url('https://i.ibb.co/bgNqhtd/banner-1.png')] bg-cover bg-center">
           <h1 className="text-5xl text-white font-bold text-center leading-normal">
-            Discover the Joy of Music at PlayGuru. <br /> Learn, Play, and Grow
+            Discover the Joy of Music <br /> Learn, Play, and Grow
           </h1>
-          <p className="max-w-4xl my-5 text-white mx-auto">
+          <p className="max-w-2xl my-5 text-white mx-auto">
             PlayGuru is your gateway to the enchanting world of music. Our music
             school is committed to providing top-notch instruction, personalized
             guidance, and a nurturing learning environment. Whether you're
