@@ -11,6 +11,8 @@ import Instructor from "./Pages/Instructor/Instructor.jsx";
 import SingleInstructor from "./Pages/SingleInstructor/SingleInstructor.jsx";
 import AllClasses from "./Pages/AllClasses/Classes.jsx";
 import SingleClass from "./Pages/SingleClass/SingleClass.jsx";
+import Login from "./Pages/Login/Login.jsx";
+import Register from "./Pages/Register/Register.jsx";
 
 const queryClient = new QueryClient();
 
@@ -48,6 +50,20 @@ const router = createBrowserRouter([
         element: <SingleClass></SingleClass>,
         loader: ({ params }) =>
           fetch(`http://localhost:3030/classes/${params.id}`),
+      },
+      {
+        path: "/allclasses/classes/:id",
+        element: <SingleClass></SingleClass>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:3030/classes/${params.id}`),
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/register",
+        element: <Register></Register>,
       },
     ],
   },

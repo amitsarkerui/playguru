@@ -25,8 +25,9 @@ const Navbar = () => {
         <Link to={"/"} className="flex items-center">
           <img src={logo} className="h-12 mr-3" alt="Play Guru Logo" />
         </Link>
+        {/* User Profile part */}
         <div className="flex items-center md:order-2 relative">
-          <button
+          {/* <button
             type="button"
             className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
             id="user-menu-button"
@@ -39,7 +40,12 @@ const Navbar = () => {
               src="/docs/images/people/profile-picture-3.jpg"
               alt="user photo"
             />
-          </button>
+          </button> */}
+          {/* ---------------- Login btn ----------------- */}
+          <Link to={"/login"}>
+            <button className="btn btn-primary text-white">Login</button>
+          </Link>
+
           {/* Dropdown menu */}
           {isUserDropdownOpen && (
             <div className="z-50 absolute right-0 my-4 mt-[230px] text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">

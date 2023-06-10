@@ -26,7 +26,35 @@ const SingleClass = () => {
         <img className="col-span-3 rounded-lg" src={image_url} alt="" />
         <span className="col-span-2">
           <h2 className="text-accent text-2xl font-bold mb-2">{className}</h2>
-          <p>{description}</p>
+          <p className="mb-5 text-gray-600 font-medium">{description}</p>
+          <p className="text-gray-600 font-medium">Instructor: {instructor}</p>
+          <p className="text-gray-600 font-medium">
+            Instructor Email: {instructor_email}
+          </p>
+
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3 justify-center my-10">
+            <p className="text-gray-600 font-medium bg-gray-100 rounded-md p-3">
+              Schedule: {schedule}
+            </p>
+            <p className="text-gray-600 font-medium bg-gray-100 rounded-md p-3">
+              Duration: {duration}
+            </p>
+            <p className="text-gray-600 font-medium bg-gray-100 rounded-md p-3">
+              Total Seat: {capacity}
+            </p>
+            <p className="text-gray-600 font-medium bg-gray-100 rounded-md p-3">
+              Total Enrollment: {enrolledStudents}
+            </p>
+            <p className="text-gray-600 font-medium bg-gray-100 rounded-md p-3">
+              Price: ${price}
+            </p>
+            <p className="text-gray-600 font-medium bg-gray-100 rounded-md p-3">
+              Location: {location}
+            </p>
+          </div>
+          <button className="btn btn-primary btn-block text-white">
+            Add to cart
+          </button>
         </span>
       </div>
     </div>
