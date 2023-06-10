@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import logo from "../../assets/logo/Logo.png";
 import svgImg from "../../assets/signin/signin.gif";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+
+import { AuthContextProvider } from "../../AuthProvider/AuthProvider";
+import { updateProfile } from "firebase/auth";
+import Swal from "sweetalert2";
 
 const imageHostingToken = import.meta.env.VITE_IMAGE_HOSTING_TOKEN;
 
@@ -14,10 +18,75 @@ const Register = () => {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm();
 
+  const { createUser } = useContext(AuthContextProvider);
+
   //   Onsubmit -------------------------->
+  //   const onSubmit = (data) => {
+  //     console.log(data);
+  //     const formData = new FormData();
+  //     formData.append("image", data.photoURL[0]);
+  //     fetch(img_hosting_url, {
+  //       method: "POST",
+  //       body: formData,
+  //     })
+  //       .then((res) => res.json())
+  //       .then((imgResponse) => {
+  //         if (imgResponse.success) {
+  //           const imgURL = imgResponse.data.display_url;
+  //           setImageURL(imgURL);
+  //         } else {
+  //           console.error("Image upload failed:", imgResponse.error);
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error during image upload:", error);
+  //       });
+  //     createUser(data.email, data.password)
+  //       .then((result) => {
+  //         const registeredUser = result.user;
+  //         updateProfile(registeredUser, {
+  //           displayName: data.name,
+  //           photoURL: imageURL,
+  //         });
+  //         console
+  //           .log(registeredUser)
+  //           .then(() => {
+  //             const saveUser = {
+  //               name: data.name,
+  //               email: data.email,
+  //               photoURL: imageURL,
+  //               role: "student",
+  //             };
+  //             fetch("http://localhost:3030/users", {
+  //               method: "POST",
+  //               headers: {
+  //                 "content-type": "application/json",
+  //               },
+  //               body: JSON.stringify(saveUser),
+  //             })
+  //               .then((res) => res.json())
+  //               .then((data) => {
+  //                 if (data.insertedId) {
+  //                   reset();
+  //                   Swal.fire({
+  //                     position: "top-end",
+  //                     icon: "success",
+  //                     title: "User created successfully.",
+  //                     showConfirmButton: false,
+  //                     timer: 1500,
+  //                   });
+  //                   //   navigate("/");
+  //                 }
+  //               });
+  //           })
+  //           .catch((error) => console.log(error));
+  //       })
+  //       .catch((err) => console.log(err.message));
+  //   };
   const onSubmit = (data) => {
     console.log(data);
     const formData = new FormData();
@@ -31,6 +100,48 @@ const Register = () => {
         if (imgResponse.success) {
           const imgURL = imgResponse.data.display_url;
           setImageURL(imgURL);
+
+          createUser(data.email, data.password)
+            .then((result) => {
+              const registeredUser = result.user;
+              updateProfile(registeredUser, {
+                displayName: data.name,
+                photoURL: imgURL,
+              });
+              console
+                .log(registeredUser)
+                .then(() => {
+                  const newRegisteredUser = {
+                    name: data.name,
+                    email: data.email,
+                    photoURL: imgURL,
+                    role: "student",
+                  };
+                  fetch("http://localhost:3030/users", {
+                    method: "POST",
+                    headers: {
+                      "content-type": "application/json",
+                    },
+                    body: JSON.stringify(newRegisteredUser),
+                  })
+                    .then((res) => res.json())
+                    .then((data) => {
+                      if (data.insertedId) {
+                        reset();
+                        Swal.fire({
+                          position: "top-end",
+                          icon: "success",
+                          title: "User created successfully.",
+                          showConfirmButton: false,
+                          timer: 1500,
+                        });
+                        // navigate("/");
+                      }
+                    });
+                })
+                .catch((error) => console.log(error));
+            })
+            .catch((err) => console.log(err.message));
         } else {
           console.error("Image upload failed:", imgResponse.error);
         }
