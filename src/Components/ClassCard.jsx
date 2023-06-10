@@ -1,7 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const ClassCard = ({ singleClass }) => {
   const {
+    _id,
     className,
     instructor,
     duration,
@@ -28,8 +30,11 @@ const ClassCard = ({ singleClass }) => {
         Available Seat: {availableSeat}
       </p>
       <div className="flex-grow"></div>
-
-      <button className="btn btn-primary mt-2 text-white">View Details</button>
+      <Link to={`classes/${_id}`}>
+        <button className="btn btn-primary btn-block mt-2 text-white">
+          View Details
+        </button>
+      </Link>
     </div>
   );
 };

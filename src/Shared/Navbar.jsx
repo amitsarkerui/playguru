@@ -126,7 +126,7 @@ const Navbar = () => {
             </li>
             <li>
               <Link
-                to="/classes"
+                to="/allclasses"
                 className={`block py-2 pl-3 pr-4 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 ${
                   isLinkActive("/classes") ? "text-primary" : "text-gray-900"
                 } md:hover:text-[#C37815] md:dark:text-blue-500 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}

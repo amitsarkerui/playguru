@@ -9,6 +9,8 @@ import Home from "./Pages/Home/Home.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Instructor from "./Pages/Instructor/Instructor.jsx";
 import SingleInstructor from "./Pages/SingleInstructor/SingleInstructor.jsx";
+import AllClasses from "./Pages/AllClasses/Classes.jsx";
+import SingleClass from "./Pages/SingleClass/SingleClass.jsx";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +38,16 @@ const router = createBrowserRouter([
         element: <SingleInstructor></SingleInstructor>,
         loader: ({ params }) =>
           fetch(`http://localhost:3030/users/${params.id}`),
+      },
+      {
+        path: "/allclasses",
+        element: <AllClasses></AllClasses>,
+      },
+      {
+        path: "/classes/:id",
+        element: <SingleClass></SingleClass>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:3030/classes/${params.id}`),
       },
     ],
   },
