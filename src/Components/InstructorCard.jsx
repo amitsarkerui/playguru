@@ -1,7 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const InstructorCard = ({ instructor }) => {
-  const { name, email, classCount, photoURL, enrollmentCount } = instructor;
+  const { _id, name, email, classCount, photoURL, enrollmentCount } =
+    instructor;
   return (
     <div className="p-8 border border-gray-300 rounded-lg">
       <img
@@ -19,9 +21,11 @@ const InstructorCard = ({ instructor }) => {
           Total Student: {enrollmentCount}
         </p>
       </span>
-      <button className="btn btn-outline mt-10 hover:bg-primary hover:border-primary w-full">
-        View Instructor Details
-      </button>
+      <Link to={`users/${_id}`}>
+        <button className="btn btn-outline mt-10 hover:bg-primary hover:border-primary w-full">
+          View Instructor Details
+        </button>
+      </Link>
     </div>
   );
 };

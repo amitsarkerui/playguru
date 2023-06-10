@@ -7,7 +7,7 @@ import InstructorCard from "../../Components/instructorCard";
 const PopularInstructor = () => {
   const [instructors] = useInstructor();
   const topInstructors = instructors.slice(0, 6);
-  console.log(topInstructors);
+  //   console.log(topInstructors);
   return (
     <div className="container mx-auto">
       <SectionHeader
