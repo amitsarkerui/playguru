@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../../assets/logo/Logo.png";
 import svgImg from "../../assets/signin/signin.gif";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
+const imageHostingToken = import.meta.env.VITE_IMAGE_HOSTING_TOKEN;
+
 const Register = () => {
+  const img_hosting_url = `https://api.imgbb.com/1/upload?key=${imageHostingToken}`;
+  const [imageURL, setImageURL] = useState("");
+  //   console.log("img--->", imageURL);
   const {
     register,
     handleSubmit,
@@ -12,11 +17,29 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  //   Onsubmit
+  //   Onsubmit -------------------------->
   const onSubmit = (data) => {
+    console.log(data);
     const formData = new FormData();
-    formData.append("photoURL", data.image[0]);
+    formData.append("image", data.photoURL[0]);
+    fetch(img_hosting_url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((imgResponse) => {
+        if (imgResponse.success) {
+          const imgURL = imgResponse.data.display_url;
+          setImageURL(imgURL);
+        } else {
+          console.error("Image upload failed:", imgResponse.error);
+        }
+      })
+      .catch((error) => {
+        console.error("Error during image upload:", error);
+      });
   };
+
   return (
     <div className="mb-5 mt-16 container mx-auto">
       <section className="gradient-form h-full bg-neutral-50 dark:bg-neutral-700 rounded-xl">

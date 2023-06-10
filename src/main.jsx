@@ -13,6 +13,7 @@ import AllClasses from "./Pages/AllClasses/Classes.jsx";
 import SingleClass from "./Pages/SingleClass/SingleClass.jsx";
 import Login from "./Pages/Login/Login.jsx";
 import Register from "./Pages/Register/Register.jsx";
+import AuthProvider from "./AuthProvider/AuthProvider.jsx";
 
 const queryClient = new QueryClient();
 
@@ -71,8 +72,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </AuthProvider>
   </React.StrictMode>
 );
