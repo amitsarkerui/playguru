@@ -9,12 +9,19 @@ const InstructorCard = ({ instructor }) => {
         src={photoURL}
         alt=""
       />
-      <h3>{name}</h3>
-      <p>{email}</p>
-      <span>
-        <p>Total Class : {classCount}</p>
-        <p>Total Student: {enrollmentCount}</p>
+      <h3 className="mt-4 text-2xl font-bold text-accent">{name}</h3>
+      <p className="text-gray-600 mb-4 font-medium">{email}</p>
+      <span className="flex gap-5">
+        <p className="bg-primary px-3 py-[2px] rounded-full text-white">
+          Total Class : {classCount}
+        </p>
+        <p className="bg-primary px-3 py-[2px] rounded-full text-white">
+          Total Student: {enrollmentCount}
+        </p>
       </span>
+      <button className="btn btn-outline mt-10 hover:bg-primary hover:border-primary w-full">
+        View Instructor Details
+      </button>
     </div>
   );
 };

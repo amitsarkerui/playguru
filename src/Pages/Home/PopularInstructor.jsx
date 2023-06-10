@@ -14,7 +14,7 @@ const PopularInstructor = () => {
         heading={"Top Instructor"}
         subHeading={"Diamond"}
       ></SectionHeader>
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3 mt-10">
         {topInstructors.map((instructor) => (
           <InstructorCard
             key={instructor._id}

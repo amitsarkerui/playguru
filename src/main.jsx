@@ -7,6 +7,7 @@ import Layout from "./Layout/Layout.jsx";
 import Home from "./Pages/Home/Home.jsx";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Instructor from "./Pages/Instructor/Instructor.jsx";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+      },
+      {
+        path: "/instructors",
+        element: <Instructor></Instructor>,
       },
     ],
   },
