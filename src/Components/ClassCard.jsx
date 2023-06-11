@@ -2,11 +2,12 @@ import React, { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContextProvider } from "../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
+import useCart from "../hooks/useCart";
 
 const ClassCard = ({ singleClass }) => {
   const navigate = useNavigate();
   const location = useLocation();
-
+  const [, refetch] = useCart();
   const { user } = useContext(AuthContextProvider);
   const {
     _id,
@@ -55,6 +56,7 @@ const ClassCard = ({ singleClass }) => {
         .then((res) => res.json())
         .then((data) => {
           if (data.insertedId) {
+            refetch();
             Swal.fire({
               position: "top-end",
               icon: "success",
