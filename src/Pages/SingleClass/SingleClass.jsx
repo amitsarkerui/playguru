@@ -52,9 +52,9 @@ const SingleClass = () => {
               Location: {location}
             </p>
           </div>
-          <button className="btn btn-primary btn-block text-white">
+          {/* <button className="btn btn-primary btn-block text-white">
             Add to cart
-          </button>
+          </button> */}
         </span>
       </div>
     </div>

@@ -1,7 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContextProvider } from "../AuthProvider/AuthProvider";
+import Swal from "sweetalert2";
 
 const ClassCard = ({ singleClass }) => {
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContextProvider);
   const {
     _id,
     className,
@@ -13,6 +17,63 @@ const ClassCard = ({ singleClass }) => {
     image_url,
   } = singleClass;
   const availableSeat = capacity - enrolledStudents;
+  const handleAddToCart = (singleClass) => {
+    const {
+      _id,
+      className,
+      instructor,
+      duration,
+      capacity,
+      enrolledStudents,
+      price,
+      image_url,
+    } = singleClass;
+    if (user && user.email) {
+      const cartClass = {
+        classesId: _id,
+        className,
+        image_url,
+        price,
+        duration,
+        capacity,
+        enrolledStudents,
+        email: user.email,
+      };
+      fetch("http://localhost:3030/carts", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(cartClass),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.insertedId) {
+            // refetch();
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Successfully Added",
+              showConfirmButton: false,
+              timer: 1000,
+            });
+          }
+        });
+    } else {
+      Swal.fire({
+        title: "Please login to order the food",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Login now!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/");
+        }
+      });
+    }
+  };
   return (
     <div className="relative flex flex-col">
       <img className="h-52 object-cover rounded-lg" src={image_url} alt="" />
@@ -30,6 +91,12 @@ const ClassCard = ({ singleClass }) => {
         Available Seat: {availableSeat}
       </p>
       <div className="flex-grow"></div>
+      <button
+        onClick={() => handleAddToCart(singleClass)}
+        className="btn btn-outline"
+      >
+        Add to Cart
+      </button>
       <Link to={`classes/${_id}`}>
         <button className="btn btn-primary btn-block mt-2 text-white">
           View Details
