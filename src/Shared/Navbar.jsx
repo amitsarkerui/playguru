@@ -7,8 +7,8 @@ const Navbar = () => {
   const [isUserDropdownOpen, setUserDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
-  const { user } = useContext(AuthContextProvider);
-  console.log(user);
+  const { user, logOut } = useContext(AuthContextProvider);
+  // console.log(user);
   const toggleUserDropdown = () => {
     setUserDropdownOpen(!isUserDropdownOpen);
   };
@@ -21,6 +21,10 @@ const Navbar = () => {
     return location.pathname === path;
   };
 
+  //signOut
+  const handleSignOut = () => {
+    logOut();
+  };
   return (
     <nav className="container mx-auto bg-white border-gray-200 dark:bg-gray-900">
       <div className="flex flex-wrap items-center justify-between mx-auto py-6 px-2">
@@ -57,36 +61,43 @@ const Navbar = () => {
           )}
 
           {/* Dropdown menu */}
-          {isUserDropdownOpen && (
-            <div className="z-50 absolute right-0 my-4 mt-[230px] text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
-              <div className="px-4 py-3">
-                <span className="block text-sm text-gray-900 dark:text-white">
-                  {user.displayName}
-                </span>
-                <span className="block text-sm text-gray-500 truncate dark:text-gray-400">
-                  {user.email}
-                </span>
-              </div>
-              <ul className="py-2" aria-labelledby="user-menu-button">
-                <li>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                  >
-                    Dashboard
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                  >
-                    Sign out
-                  </a>
-                </li>
-              </ul>
-            </div>
+          {user ? (
+            <>
+              {isUserDropdownOpen && (
+                <div className="z-50 absolute right-0 my-4 mt-[230px] text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
+                  <div className="px-4 py-3">
+                    <span className="block text-sm text-gray-900 dark:text-white">
+                      {user.displayName}
+                    </span>
+                    <span className="block text-sm text-gray-500 truncate dark:text-gray-400">
+                      {user.email}
+                    </span>
+                  </div>
+                  <ul className="py-2" aria-labelledby="user-menu-button">
+                    <li>
+                      <a
+                        href="#"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                      >
+                        Dashboard
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        onClick={handleSignOut}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                      >
+                        Sign out
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </>
+          ) : (
+            <></>
           )}
+
           <button
             data-collapse-toggle="mobile-menu-2"
             type="button"
