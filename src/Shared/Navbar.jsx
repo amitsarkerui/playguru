@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/logo/Logo.png";
+import { AuthContextProvider } from "../AuthProvider/AuthProvider";
 
 const Navbar = () => {
   const [isUserDropdownOpen, setUserDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
-
+  const { user } = useContext(AuthContextProvider);
+  console.log(user);
   const toggleUserDropdown = () => {
     setUserDropdownOpen(!isUserDropdownOpen);
   };
@@ -25,36 +27,44 @@ const Navbar = () => {
         <Link to={"/"} className="flex items-center">
           <img src={logo} className="h-12 mr-3" alt="Play Guru Logo" />
         </Link>
+
         {/* User Profile part */}
         <div className="flex items-center md:order-2 relative">
-          {/* <button
-            type="button"
-            className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-            id="user-menu-button"
-            aria-expanded={isUserDropdownOpen ? "true" : "false"}
-            onClick={toggleUserDropdown}
-          >
-            <span className="sr-only">Open user menu</span>
-            <img
-              className="w-10 h-10 rounded-full"
-              src="/docs/images/people/profile-picture-3.jpg"
-              alt="user photo"
-            />
-          </button> */}
-          {/* ---------------- Login btn ----------------- */}
-          <Link to={"/login"}>
-            <button className="btn btn-primary text-white">Login</button>
-          </Link>
+          {user ? (
+            <>
+              <button
+                type="button"
+                className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                id="user-menu-button"
+                aria-expanded={isUserDropdownOpen ? "true" : "false"}
+                onClick={toggleUserDropdown}
+              >
+                <span className="sr-only">Open user menu</span>
+                <img
+                  className="w-10 h-10 rounded-full object-cover"
+                  src={user.photoURL}
+                  alt="user photo"
+                />
+              </button>
+            </>
+          ) : (
+            <>
+              {/* ---------------- Login btn ----------------- */}
+              <Link to={"/login"}>
+                <button className="btn btn-primary text-white">Login</button>
+              </Link>
+            </>
+          )}
 
           {/* Dropdown menu */}
           {isUserDropdownOpen && (
             <div className="z-50 absolute right-0 my-4 mt-[230px] text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
               <div className="px-4 py-3">
                 <span className="block text-sm text-gray-900 dark:text-white">
-                  Bonnie Green
+                  {user.displayName}
                 </span>
                 <span className="block text-sm text-gray-500 truncate dark:text-gray-400">
-                  name@guru.com
+                  {user.email}
                 </span>
               </div>
               <ul className="py-2" aria-labelledby="user-menu-button">
