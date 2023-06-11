@@ -7,7 +7,7 @@ import useCart from "../hooks/useCart";
 const ClassCard = ({ singleClass }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [, refetch] = useCart();
+  const [cart, refetch] = useCart();
   const { user } = useContext(AuthContextProvider);
   const {
     _id,
@@ -81,6 +81,10 @@ const ClassCard = ({ singleClass }) => {
       });
     }
   };
+
+  // Check Classes in the cart
+  const isInCart = cart.find((cls) => cls.classesId === _id);
+
   return (
     <div className="relative flex flex-col">
       <img className="h-52 object-cover rounded-lg" src={image_url} alt="" />
@@ -98,12 +102,23 @@ const ClassCard = ({ singleClass }) => {
         Available Seat: {availableSeat}
       </p>
       <div className="flex-grow"></div>
-      <button
-        onClick={() => handleAddToCart(singleClass)}
-        className="btn btn-outline"
-      >
-        Add to Cart
-      </button>
+      {isInCart ? (
+        <button
+          onClick={() => handleAddToCart(singleClass)}
+          className="btn btn-outline"
+          disabled
+        >
+          Already Added
+        </button>
+      ) : (
+        <button
+          onClick={() => handleAddToCart(singleClass)}
+          className="btn btn-outline"
+        >
+          Add to Cart
+        </button>
+      )}
+
       <Link to={`classes/${_id}`}>
         <button className="btn btn-primary btn-block mt-2 text-white">
           View Details
