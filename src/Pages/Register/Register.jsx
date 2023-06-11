@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import logo from "../../assets/logo/Logo.png";
 import svgImg from "../../assets/signin/signin.gif";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import { AuthContextProvider } from "../../AuthProvider/AuthProvider";
@@ -21,72 +21,11 @@ const Register = () => {
     reset,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
+  const { createUser, googleLogin } = useContext(AuthContextProvider);
 
-  const { createUser } = useContext(AuthContextProvider);
+  //   Onsubmit register -------------------------->
 
-  //   Onsubmit -------------------------->
-  //   const onSubmit = (data) => {
-  //     console.log(data);
-  //     const formData = new FormData();
-  //     formData.append("image", data.photoURL[0]);
-  //     fetch(img_hosting_url, {
-  //       method: "POST",
-  //       body: formData,
-  //     })
-  //       .then((res) => res.json())
-  //       .then((imgResponse) => {
-  //         if (imgResponse.success) {
-  //           const imgURL = imgResponse.data.display_url;
-  //           setImageURL(imgURL);
-  //         } else {
-  //           console.error("Image upload failed:", imgResponse.error);
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error during image upload:", error);
-  //       });
-  //     createUser(data.email, data.password)
-  //       .then((result) => {
-  //         const registeredUser = result.user;
-  //         updateProfile(registeredUser, {
-  //           displayName: data.name,
-  //           photoURL: imageURL,
-  //         });
-  //         console
-  //           .log(registeredUser)
-  //           .then(() => {
-  //             const saveUser = {
-  //               name: data.name,
-  //               email: data.email,
-  //               photoURL: imageURL,
-  //               role: "student",
-  //             };
-  //             fetch("http://localhost:3030/users", {
-  //               method: "POST",
-  //               headers: {
-  //                 "content-type": "application/json",
-  //               },
-  //               body: JSON.stringify(saveUser),
-  //             })
-  //               .then((res) => res.json())
-  //               .then((data) => {
-  //                 if (data.insertedId) {
-  //                   reset();
-  //                   Swal.fire({
-  //                     position: "top-end",
-  //                     icon: "success",
-  //                     title: "User created successfully.",
-  //                     showConfirmButton: false,
-  //                     timer: 1500,
-  //                   });
-  //                   //   navigate("/");
-  //                 }
-  //               });
-  //           })
-  //           .catch((error) => console.log(error));
-  //       })
-  //       .catch((err) => console.log(err.message));
-  //   };
   const onSubmit = (data) => {
     console.log(data);
     const formData = new FormData();
@@ -108,36 +47,32 @@ const Register = () => {
                 displayName: data.name,
                 photoURL: imgURL,
               });
-              console
-                .log(registeredUser)
-                .then(() => {
-                  const newRegisteredUser = {
-                    name: data.name,
-                    email: data.email,
-                    photoURL: imgURL,
-                    role: "student",
-                  };
-                  fetch("http://localhost:3030/users", {
-                    method: "POST",
-                    headers: {
-                      "content-type": "application/json",
-                    },
-                    body: JSON.stringify(newRegisteredUser),
-                  })
-                    .then((res) => res.json())
-                    .then((data) => {
-                      if (data.insertedId) {
-                        reset();
-                        Swal.fire({
-                          position: "top-end",
-                          icon: "success",
-                          title: "User created successfully.",
-                          showConfirmButton: false,
-                          timer: 1500,
-                        });
-                        // navigate("/");
-                      }
+
+              const newCreatedUser = {
+                name: data.name,
+                email: data.email,
+                photoURL: imgURL,
+                role: "student",
+              };
+              fetch("http://localhost:3030/users", {
+                method: "POST",
+                headers: {
+                  "content-type": "application/json",
+                },
+                body: JSON.stringify(newCreatedUser),
+              })
+                .then((res) => res.json())
+                .then((data) => {
+                  if (data.insertedId) {
+                    reset();
+                    Swal.fire({
+                      title: "Success!",
+                      text: "Registration Successfully",
+                      icon: "success",
+                      confirmButtonText: "Okay",
                     });
+                    navigate("/");
+                  }
                 })
                 .catch((error) => console.log(error));
             })
@@ -148,6 +83,43 @@ const Register = () => {
       })
       .catch((error) => {
         console.error("Error during image upload:", error);
+      });
+  };
+
+  //   google login -------------------------->
+  const continueWithGoogle = () => {
+    googleLogin()
+      .then((result) => {
+        const { displayName, email, photoURL } = result.user;
+        const newCreatedUser = {
+          name: displayName,
+          email: email,
+          photoURL: photoURL,
+          role: "student",
+        };
+        fetch("http://localhost:3030/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newCreatedUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.insertedId) {
+              Swal.fire({
+                title: "Success!",
+                text: "Registration Successfully",
+                icon: "success",
+                confirmButtonText: "Okay",
+              });
+              // navigate("/");
+            }
+          })
+          .catch((error) => console.log(error));
+      })
+      .catch((error) => {
+        console.error("Google login error:", error);
       });
   };
 
@@ -170,7 +142,9 @@ const Register = () => {
                       </div>
 
                       <form onSubmit={handleSubmit(onSubmit)}>
-                        <h4 className="mb-4">Please Register</h4>
+                        <h4 className="mb-4 text-2xl font-bold">
+                          Please Register
+                        </h4>
 
                         <div className="mb-4">
                           <label className="label">Name</label>
@@ -243,24 +217,27 @@ const Register = () => {
                         <div className="mb-2 pb-1 pt-1 text-center mt-6">
                           <input
                             type="submit"
-                            value="Login"
+                            value="Create Account"
                             className="  btn btn-block btn-primary text-white border-none"
                           />
                         </div>
                       </form>
-                      {/* <button className="btn btn-block mb-12 bg-[#4285F4] border-none text-white">
+                      <button
+                        onClick={continueWithGoogle}
+                        className="btn btn-block mb-12 bg-[#4285F4] border-none text-white"
+                      >
                         Continue with Google
-                      </button> */}
+                      </button>
                       <div className="flex items-center justify-between pb-6">
-                        <p className="mb-0 mr-2">Don't have an account?</p>
-                        <Link to={"/register"}>
+                        <p className="mb-0 mr-2">Already have an account?</p>
+                        <Link to={"/login"}>
                           <button
                             type="button"
                             className="inline-block rounded border-2 border-danger px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger transition duration-150 ease-in-out hover:border-danger-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-danger-600 focus:border-danger-600 focus:text-danger-600 focus:outline-none focus:ring-0 active:border-danger-700 active:text-danger-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
                             data-te-ripple-init
                             data-te-ripple-color="light"
                           >
-                            Register
+                            Login
                           </button>
                         </Link>
                       </div>
