@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContextProvider } from "../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
 
 const ClassCard = ({ singleClass }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const { user } = useContext(AuthContextProvider);
   const {
     _id,
@@ -16,7 +18,10 @@ const ClassCard = ({ singleClass }) => {
     price,
     image_url,
   } = singleClass;
+
   const availableSeat = capacity - enrolledStudents;
+
+  // Add to cart ------------------------------>
   const handleAddToCart = (singleClass) => {
     const {
       _id,
@@ -32,6 +37,7 @@ const ClassCard = ({ singleClass }) => {
       const cartClass = {
         classesId: _id,
         className,
+        instructor,
         image_url,
         price,
         duration,
@@ -49,13 +55,12 @@ const ClassCard = ({ singleClass }) => {
         .then((res) => res.json())
         .then((data) => {
           if (data.insertedId) {
-            // refetch();
             Swal.fire({
               position: "top-end",
               icon: "success",
               title: "Successfully Added",
               showConfirmButton: false,
-              timer: 1000,
+              timer: 2000,
             });
           }
         });
@@ -69,7 +74,7 @@ const ClassCard = ({ singleClass }) => {
         confirmButtonText: "Login now!",
       }).then((result) => {
         if (result.isConfirmed) {
-          navigate("/");
+          navigate("/login", { state: { from: location } });
         }
       });
     }
