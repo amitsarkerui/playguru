@@ -1,9 +1,42 @@
-import React from "react";
+import React, { useContext } from "react";
 import logo from "../../assets/logo/Logo.png";
 import svgImg from "../../assets/signin/signin.gif";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContextProvider } from "../../AuthProvider/AuthProvider";
+import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 const Login = () => {
+  const { login } = useContext(AuthContextProvider);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const navigate = useNavigate();
+  const onSubmit = (data) => {
+    login(data.email, data.password)
+      .then((res) => {
+        const user = res.user;
+        Swal.fire({
+          title: "Success!",
+          text: "Login Successfully",
+          icon: "success",
+          confirmButtonText: "Okay",
+        });
+        navigate("/");
+      })
+      .catch((err) => {
+        Swal.fire({
+          title: `${err.message}`,
+          text: "Please check and try again",
+          icon: "warning",
+          confirmButtonText: "Okey",
+        });
+      });
+  };
   return (
     <div className="mb-5 mt-16 container mx-auto">
       <section className="gradient-form h-full bg-neutral-50 dark:bg-neutral-700 rounded-xl">
@@ -22,13 +55,16 @@ const Login = () => {
                         />
                       </div>
 
-                      <form>
-                        <h4 className="mb-4">Please login to your account</h4>
+                      <form onSubmit={handleSubmit(onSubmit)}>
+                        <h4 className="mb-4 text-2xl font-bold">
+                          Please login to your account
+                        </h4>
 
                         <div className="mb-4">
                           <label className="label">Email</label>
                           <input
                             type="email"
+                            {...register("email")}
                             name="email"
                             placeholder="Type your email here"
                             className="input input-bordered w-full"
@@ -39,6 +75,7 @@ const Login = () => {
                           <label className="label">Password</label>
                           <input
                             type="password"
+                            {...register("password")}
                             name="password"
                             placeholder="Type your password here"
                             className="input input-bordered w-full"
@@ -52,10 +89,8 @@ const Login = () => {
                           />
                         </div>
                       </form>
-                      <button className="btn btn-block mb-12 bg-[#4285F4] border-none text-white">
-                        Continue with Google
-                      </button>
-                      <div className="flex items-center justify-between pb-6">
+
+                      <div className="flex items-center justify-between pb-6 mt-10">
                         <p className="mb-0 mr-2">Don't have an account?</p>
                         <Link to={"/register"}>
                           <button

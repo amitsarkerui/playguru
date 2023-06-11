@@ -113,8 +113,8 @@ const Register = () => {
                 icon: "success",
                 confirmButtonText: "Okay",
               });
-              // navigate("/");
             }
+            navigate("/");
           })
           .catch((error) => console.log(error));
       })

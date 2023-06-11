@@ -21,7 +21,7 @@ const AuthProvider = ({ children }) => {
   const googleLogin = () => {
     return signInWithPopup(auth, googleProvider);
   };
-  const authInfo = { createUser, googleLogin };
+  const authInfo = { createUser, googleLogin, login };
   return (
     <AuthContextProvider.Provider value={authInfo}>
       {children}
