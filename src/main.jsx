@@ -14,6 +14,8 @@ import SingleClass from "./Pages/SingleClass/SingleClass.jsx";
 import Login from "./Pages/Login/Login.jsx";
 import Register from "./Pages/Register/Register.jsx";
 import AuthProvider from "./AuthProvider/AuthProvider.jsx";
+import DashboardLayout from "./Layout/DashboardLayout.jsx";
+import SelectedClass from "./Pages/Dashboard/SelectedClass/SelectedClass.jsx";
 
 const queryClient = new QueryClient();
 
@@ -65,6 +67,17 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register></Register>,
+      },
+    ],
+  },
+  // Dashboard Route
+  {
+    path: "/dashboard",
+    element: <DashboardLayout></DashboardLayout>,
+    children: [
+      {
+        path: "/dashboard/selectedClass",
+        element: <SelectedClass></SelectedClass>,
       },
     ],
   },

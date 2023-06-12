@@ -68,7 +68,7 @@ const ClassCard = ({ singleClass }) => {
         });
     } else {
       Swal.fire({
-        title: "Please login to order the food",
+        title: "Please login to Add the class",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -83,7 +83,10 @@ const ClassCard = ({ singleClass }) => {
   };
 
   // Check Classes in the cart
-  const isInCart = cart.find((cls) => cls.classesId === _id);
+  const isInCart =
+    Array.isArray(cart) &&
+    cart.find &&
+    cart.find((cls) => cls.classesId === _id);
 
   return (
     <div className="relative flex flex-col">
