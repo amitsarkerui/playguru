@@ -1,4 +1,5 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import axios from "axios";
 import { useContext, useEffect } from "react";
 import { useState } from "react";
 import "./CheckoutForm.css";
@@ -14,6 +15,28 @@ const CheckoutForm = ({ cart, price }) => {
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
   const [transactionId, setTransactionId] = useState("");
+
+  const handlePaymentSuccess = async () => {
+    const classId = cart?.classesId;
+    const classesApiUrl = `/classes/${classId}`;
+    try {
+      const response = await axiosSecure.get(classesApiUrl);
+
+      if (response.status === 200) {
+        const classData = response.data;
+        const updatedEnrolledStudents = classData.enrolledStudents + 1;
+
+        const updatedClassData = {
+          ...classData,
+          enrolledStudents: updatedEnrolledStudents,
+        };
+
+        await axiosSecure.patch(classesApiUrl, updatedClassData);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     if (price > 0) {
@@ -83,6 +106,8 @@ const CheckoutForm = ({ cart, price }) => {
         if (res.data.result.insertedId) {
         }
       });
+      //   update enrollment number
+      handlePaymentSuccess();
     }
   };
 
