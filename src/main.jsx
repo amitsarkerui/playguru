@@ -16,6 +16,7 @@ import Register from "./Pages/Register/Register.jsx";
 import AuthProvider from "./AuthProvider/AuthProvider.jsx";
 import DashboardLayout from "./Layout/DashboardLayout.jsx";
 import SelectedClass from "./Pages/Dashboard/SelectedClass/SelectedClass.jsx";
+import Payment from "./Pages/Dashboard/Payment/Payment.jsx";
 
 const queryClient = new QueryClient();
 
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/selectedClass",
         element: <SelectedClass></SelectedClass>,
+      },
+      {
+        path: "/dashboard/payment/:id",
+        element: <Payment></Payment>,
       },
     ],
   },
