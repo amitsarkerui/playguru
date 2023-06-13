@@ -23,6 +23,7 @@ import PrivateRoute from "./Routes/PrivateRoute.jsx";
 import AdminRoute from "./Routes/AdminRoute.jsx";
 import AddClass from "./Pages/Dashboard/Instructor/AddClass.jsx";
 import InstructorRoute from "./Routes/InstructorRoute.jsx";
+import MyClasses from "./Pages/Dashboard/Instructor/Myclasses.jsx";
 
 const queryClient = new QueryClient();
 
@@ -107,6 +108,14 @@ const router = createBrowserRouter([
         element: (
           <InstructorRoute>
             <AddClass></AddClass>
+          </InstructorRoute>
+        ),
+      },
+      {
+        path: "/dashboard/myClasses",
+        element: (
+          <InstructorRoute>
+            <MyClasses></MyClasses>
           </InstructorRoute>
         ),
       },
