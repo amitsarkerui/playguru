@@ -20,6 +20,9 @@ import Payment from "./Pages/Dashboard/Payment/Payment.jsx";
 import EnrollClass from "./Pages/Dashboard/EnrollClass/EnrollClass.jsx";
 import PaymentHistory from "./Pages/Dashboard/PaymentHistory/PaymentHistory.jsx";
 import PrivateRoute from "./Routes/PrivateRoute.jsx";
+import AdminRoute from "./Routes/AdminRoute.jsx";
+import AddClass from "./Pages/Dashboard/Instructor/AddClass.jsx";
+import InstructorRoute from "./Routes/InstructorRoute.jsx";
 
 const queryClient = new QueryClient();
 
@@ -98,6 +101,14 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/paymentHistory",
         element: <PaymentHistory></PaymentHistory>,
+      },
+      {
+        path: "/dashboard/addClass",
+        element: (
+          <InstructorRoute>
+            <AddClass></AddClass>
+          </InstructorRoute>
+        ),
       },
     ],
   },

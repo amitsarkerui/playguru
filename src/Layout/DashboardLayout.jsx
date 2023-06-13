@@ -10,6 +10,8 @@ import {
   FaHome,
   FaUserShield,
   FaUserGraduate,
+  FaPlus,
+  FaListAlt,
 } from "react-icons/fa";
 
 const DashboardLayout = () => {
@@ -47,7 +49,7 @@ const DashboardLayout = () => {
           <Link to={"/"}>
             <img className="h-12 mt-6 mb-10" src={logo} alt="" />
           </Link>
-
+          {/* ----------- Link for user/student --------------------- */}
           <ul className="space-y-2 font-medium">
             <li>
               <Link
@@ -74,6 +76,27 @@ const DashboardLayout = () => {
               >
                 <FaMoneyCheckAlt className="text-xl font-medium text-gray-500"></FaMoneyCheckAlt>
                 <span className="ml-3">Payment History</span>
+              </Link>
+            </li>
+          </ul>
+          {/* ----------- Link for instructor ----------------------- */}
+          <ul className="space-y-2 font-medium">
+            <li>
+              <Link
+                to={"/dashboard/addClass"}
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <FaPlus className="text-xl font-medium text-gray-500"></FaPlus>
+                <span className="ml-3">Add a class</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/dashboard/myClasses"}
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <FaListAlt className="text-xl font-medium text-gray-500"></FaListAlt>
+                <span className="ml-3">My Classes</span>
               </Link>
             </li>
           </ul>

@@ -9,16 +9,14 @@ const SingleClass = () => {
     className,
     instructor,
     instructor_email,
-    schedule,
     duration,
     description,
-    requirements,
     capacity,
     enrolledStudents,
     location,
     price,
     image_url,
-  } = loaderClass;
+  } = loaderClass || {};
   return (
     <div>
       <SectionBanner bannerTitle={"Class Details"}></SectionBanner>
@@ -33,9 +31,6 @@ const SingleClass = () => {
           </p>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3 justify-center my-10">
-            <p className="text-gray-600 font-medium bg-gray-100 rounded-md p-3">
-              Schedule: {schedule}
-            </p>
             <p className="text-gray-600 font-medium bg-gray-100 rounded-md p-3">
               Duration: {duration}
             </p>

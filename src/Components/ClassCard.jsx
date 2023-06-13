@@ -80,6 +80,15 @@ const ClassCard = ({ singleClass }) => {
         }
       });
     }
+
+    // Check if availableSeat is 0
+    if (availableSeat === 0) {
+      Swal.fire({
+        icon: "error",
+        title: "No seats available",
+        text: "There are no seats available for this class.",
+      });
+    }
   };
 
   // Check Classes in the cart
@@ -88,8 +97,13 @@ const ClassCard = ({ singleClass }) => {
     cart.find &&
     cart.find((cls) => cls.classesId === _id);
 
+  const cardStyle = {
+    border: availableSeat === 0 ? "2px solid red" : "none",
+    borderRadius: availableSeat === 0 ? "10px" : "0",
+  };
+
   return (
-    <div className="relative flex flex-col">
+    <div className="relative flex flex-col" style={cardStyle}>
       <img className="h-52 object-cover rounded-lg" src={image_url} alt="" />
       <span className="flex gap-2 absolute top-2 right-2">
         <p className="px-3 py-[1px] rounded-full bg-primary/75 text-white text-sm font-medium">
@@ -114,11 +128,14 @@ const ClassCard = ({ singleClass }) => {
           Already Added
         </button>
       ) : (
-        <button onClick={() => handleAddToCart(singleClass)} className="btn">
-          Add to Cart
+        <button
+          onClick={() => handleAddToCart(singleClass)}
+          className="btn"
+          disabled={availableSeat === 0}
+        >
+          {availableSeat === 0 ? "No Seat Available" : "Add to Cart"}
         </button>
       )}
-
       <Link to={`classes/${_id}`}>
         <button className="btn btn-primary btn-block mt-2 text-white">
           View Details
