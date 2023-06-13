@@ -18,6 +18,7 @@ import DashboardLayout from "./Layout/DashboardLayout.jsx";
 import SelectedClass from "./Pages/Dashboard/SelectedClass/SelectedClass.jsx";
 import Payment from "./Pages/Dashboard/Payment/Payment.jsx";
 import EnrollClass from "./Pages/Dashboard/EnrollClass/EnrollClass.jsx";
+import PaymentHistory from "./Pages/Dashboard/PaymentHistory/PaymentHistory.jsx";
 
 const queryClient = new QueryClient();
 
@@ -88,6 +89,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/enrollClass",
         element: <EnrollClass></EnrollClass>,
+      },
+      {
+        path: "/dashboard/paymentHistory",
+        element: <PaymentHistory></PaymentHistory>,
       },
     ],
   },
