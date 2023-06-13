@@ -6,11 +6,14 @@ const PopularClasses = () => {
   const [classes, setClasses] = useState([]);
   // console.log(classes);
   useEffect(() => {
-    fetch("https://play-guru-server.vercel.app/classes")
+    fetch("http://localhost:3030/classes")
       .then((res) => res.json())
       .then((data) => setClasses(data));
   }, []);
-  const sortedClasses = classes.sort(
+
+  const filteredClasses = classes.filter((cls) => cls.status !== "pending");
+
+  const sortedClasses = filteredClasses.sort(
     (a, b) => b.enrolledStudents - a.enrolledStudents
   );
   const topClasses = sortedClasses.slice(0, 6);

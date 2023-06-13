@@ -46,7 +46,7 @@ const ClassCard = ({ singleClass }) => {
         enrolledStudents,
         email: user.email,
       };
-      fetch("https://play-guru-server.vercel.app/carts", {
+      fetch("http://localhost:3030/carts", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -130,7 +130,7 @@ const ClassCard = ({ singleClass }) => {
       ) : (
         <button
           onClick={() => handleAddToCart(singleClass)}
-          className="btn"
+          className="btn btn-outline"
           disabled={availableSeat === 0}
         >
           {availableSeat === 0 ? "No Seat Available" : "Add to Cart"}

@@ -10,11 +10,12 @@ const SingleInstructor = () => {
   const { data: classes = [] } = useQuery({
     queryKey: ["classes"],
     queryFn: async () => {
-      const res = await fetch("https://play-guru-server.vercel.app/classes");
+      const res = await fetch("http://localhost:3030/classes");
       return res.json();
     },
   });
-  const instructorClasses = classes.filter(
+  const filteredClasses = classes.filter((cls) => cls.status !== "pending");
+  const instructorClasses = filteredClasses.filter(
     (singleClass) => singleClass.instructor_email === email
   );
 

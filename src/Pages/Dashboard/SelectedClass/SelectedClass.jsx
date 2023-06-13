@@ -19,7 +19,7 @@ const SelectedClass = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://play-guru-server.vercel.app/carts/${id}`, {
+        fetch(`http://localhost:3030/carts/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
