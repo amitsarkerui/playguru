@@ -12,6 +12,8 @@ import {
   FaUserGraduate,
   FaPlus,
   FaListAlt,
+  FaUserCheck,
+  FaListOl,
 } from "react-icons/fa";
 
 const DashboardLayout = () => {
@@ -97,6 +99,27 @@ const DashboardLayout = () => {
               >
                 <FaListAlt className="text-xl font-medium text-gray-500"></FaListAlt>
                 <span className="ml-3">My Classes</span>
+              </Link>
+            </li>
+          </ul>
+          {/* ----------- Link for admin ----------------------- */}
+          <ul className="space-y-2 font-medium">
+            <li>
+              <Link
+                to={"/dashboard/manageUsers"}
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <FaUserCheck className="text-xl font-medium text-gray-500"></FaUserCheck>
+                <span className="ml-3">Manage User</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/dashboard/manageClasses"}
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <FaListOl className="text-xl font-medium text-gray-500"></FaListOl>
+                <span className="ml-3">Manage Classes</span>
               </Link>
             </li>
           </ul>
