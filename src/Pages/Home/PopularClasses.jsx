@@ -6,7 +6,7 @@ const PopularClasses = () => {
   const [classes, setClasses] = useState([]);
   // console.log(classes);
   useEffect(() => {
-    fetch("http://localhost:3030/classes")
+    fetch("https://play-guru-server.vercel.app/classes")
       .then((res) => res.json())
       .then((data) => setClasses(data));
   }, []);

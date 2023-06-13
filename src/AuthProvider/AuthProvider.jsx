@@ -40,7 +40,9 @@ const AuthProvider = ({ children }) => {
       setLoading(false);
       if (currentUser) {
         axios
-          .post("http://localhost:3030/jwt", { email: currentUser.email })
+          .post("https://play-guru-server.vercel.app/jwt", {
+            email: currentUser.email,
+          })
           .then((data) => {
             // console.log(data.data.token)
             localStorage.setItem("access-token", data.data.token);

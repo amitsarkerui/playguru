@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const InstructorCard = ({ instructor }) => {
   const { _id, name, email, classCount, photoURL, enrollmentCount } =
-    instructor;
+    instructor || {};
   return (
     <div className="p-8 border border-gray-300 rounded-lg">
       <img

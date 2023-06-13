@@ -18,7 +18,7 @@ const ClassCard = ({ singleClass }) => {
     enrolledStudents,
     price,
     image_url,
-  } = singleClass;
+  } = singleClass || {};
 
   const availableSeat = capacity - enrolledStudents;
 
@@ -46,7 +46,7 @@ const ClassCard = ({ singleClass }) => {
         enrolledStudents,
         email: user.email,
       };
-      fetch("http://localhost:3030/carts", {
+      fetch("https://play-guru-server.vercel.app/carts", {
         method: "POST",
         headers: {
           "content-type": "application/json",

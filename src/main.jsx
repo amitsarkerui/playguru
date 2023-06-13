@@ -19,6 +19,7 @@ import SelectedClass from "./Pages/Dashboard/SelectedClass/SelectedClass.jsx";
 import Payment from "./Pages/Dashboard/Payment/Payment.jsx";
 import EnrollClass from "./Pages/Dashboard/EnrollClass/EnrollClass.jsx";
 import PaymentHistory from "./Pages/Dashboard/PaymentHistory/PaymentHistory.jsx";
+import PrivateRoute from "./Routes/PrivateRoute.jsx";
 
 const queryClient = new QueryClient();
 
@@ -39,13 +40,13 @@ const router = createBrowserRouter([
         path: "/users/:id",
         element: <SingleInstructor></SingleInstructor>,
         loader: ({ params }) =>
-          fetch(`http://localhost:3030/users/${params.id}`),
+          fetch(`https://play-guru-server.vercel.app/users/${params.id}`),
       },
       {
         path: "/instructors/users/:id",
         element: <SingleInstructor></SingleInstructor>,
         loader: ({ params }) =>
-          fetch(`http://localhost:3030/users/${params.id}`),
+          fetch(`https://play-guru-server.vercel.app/users/${params.id}`),
       },
       {
         path: "/allclasses",
@@ -53,15 +54,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/classes/:id",
-        element: <SingleClass></SingleClass>,
+        element: (
+          <PrivateRoute>
+            <SingleClass></SingleClass>
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3030/classes/${params.id}`),
+          fetch(`https://play-guru-server.vercel.app/classes/${params.id}`),
       },
       {
         path: "/allclasses/classes/:id",
         element: <SingleClass></SingleClass>,
         loader: ({ params }) =>
-          fetch(`http://localhost:3030/classes/${params.id}`),
+          fetch(`https://play-guru-server.vercel.app/classes/${params.id}`),
       },
       {
         path: "/login",
