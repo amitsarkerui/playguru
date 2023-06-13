@@ -101,9 +101,22 @@ const CheckoutForm = ({ cart, price }) => {
         classId: cart?.classesId,
         className: cart?.className,
       };
+      const enrolled = {
+        email: user?.email,
+        classId: cart?.classesId,
+        className: cart?.className,
+        image_url: cart?.image_url,
+        instructor: cart?.instructor,
+        instructor_email: cart?.instructor_email,
+      };
       axiosSecure.post("/payments", payment).then((res) => {
         console.log(res.data);
-        if (res.data.result.insertedId) {
+        if (res.data.result && res.data.result.insertedId) {
+        }
+      });
+      axiosSecure.post("/enrollmentClass", enrolled).then((res) => {
+        console.log(res.data);
+        if (res.data.result && res.data.result.insertedId) {
         }
       });
       //   update enrollment number

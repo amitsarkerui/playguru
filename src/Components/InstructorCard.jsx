@@ -22,7 +22,7 @@ const InstructorCard = ({ instructor }) => {
         </p>
       </span>
       <Link to={`users/${_id}`}>
-        <button className="btn btn-outline mt-10 hover:bg-primary hover:border-primary w-full">
+        <button className="btn  btn-primary text-white mt-10 hover:bg-primary hover:border-primary w-full">
           View Instructor Details
         </button>
       </Link>

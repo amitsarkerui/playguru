@@ -114,10 +114,7 @@ const ClassCard = ({ singleClass }) => {
           Already Added
         </button>
       ) : (
-        <button
-          onClick={() => handleAddToCart(singleClass)}
-          className="btn btn-outline"
-        >
+        <button onClick={() => handleAddToCart(singleClass)} className="btn">
           Add to Cart
         </button>
       )}
