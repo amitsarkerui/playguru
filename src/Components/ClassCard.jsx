@@ -125,7 +125,7 @@ const ClassCard = ({ singleClass }) => {
           className="btn btn-outline"
           disabled
         >
-          Already Added
+          Already Selected
         </button>
       ) : (
         <button
@@ -133,7 +133,7 @@ const ClassCard = ({ singleClass }) => {
           className="btn btn-outline"
           disabled={availableSeat === 0}
         >
-          {availableSeat === 0 ? "No Seat Available" : "Add to Cart"}
+          {availableSeat === 0 ? "No Seat Available" : "Select Class"}
         </button>
       )}
       <Link to={`classes/${_id}`}>

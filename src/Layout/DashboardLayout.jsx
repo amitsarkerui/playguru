@@ -15,8 +15,14 @@ import {
   FaUserCheck,
   FaListOl,
 } from "react-icons/fa";
+import useAdmin from "../hooks/useAdmin";
+import useInstructorRole from "../hooks/useInstructorRole";
+import useStudent from "../hooks/useStudent";
 
 const DashboardLayout = () => {
+  const [isAdmin] = useAdmin();
+  const [isInstructor] = useInstructorRole();
+  const [isStudent] = useStudent();
   return (
     <div>
       <button
@@ -52,77 +58,85 @@ const DashboardLayout = () => {
             <img className="h-12 mt-6 mb-10" src={logo} alt="" />
           </Link>
           {/* ----------- Link for user/student --------------------- */}
-          <ul className="space-y-2 font-medium">
-            <li>
-              <Link
-                to={"/dashboard/selectedClass"}
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <FaCartArrowDown className="text-xl font-medium text-gray-500"></FaCartArrowDown>
-                <span className="ml-3">Selected Class</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={"/dashboard/enrollClass"}
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <FaCheckDouble className="text-xl font-medium text-gray-500"></FaCheckDouble>
-                <span className="ml-3">Enrollment Class</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={"/dashboard/paymentHistory"}
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <FaMoneyCheckAlt className="text-xl font-medium text-gray-500"></FaMoneyCheckAlt>
-                <span className="ml-3">Payment History</span>
-              </Link>
-            </li>
-          </ul>
+          {isStudent && (
+            <ul className="space-y-2 font-medium">
+              <li>
+                <Link
+                  to={"/dashboard/selectedClass"}
+                  className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <FaCartArrowDown className="text-xl font-medium text-gray-500"></FaCartArrowDown>
+                  <span className="ml-3">Selected Class</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={"/dashboard/enrollClass"}
+                  className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <FaCheckDouble className="text-xl font-medium text-gray-500"></FaCheckDouble>
+                  <span className="ml-3">Enrollment Class</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={"/dashboard/paymentHistory"}
+                  className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <FaMoneyCheckAlt className="text-xl font-medium text-gray-500"></FaMoneyCheckAlt>
+                  <span className="ml-3">Payment History</span>
+                </Link>
+              </li>
+            </ul>
+          )}
           {/* ----------- Link for instructor ----------------------- */}
-          <ul className="space-y-2 font-medium">
-            <li>
-              <Link
-                to={"/dashboard/addClass"}
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <FaPlus className="text-xl font-medium text-gray-500"></FaPlus>
-                <span className="ml-3">Add a class</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={"/dashboard/myClasses"}
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <FaListAlt className="text-xl font-medium text-gray-500"></FaListAlt>
-                <span className="ml-3">My Classes</span>
-              </Link>
-            </li>
-          </ul>
+          {isInstructor && (
+            <ul className="space-y-2 font-medium">
+              <li>
+                <Link
+                  to={"/dashboard/addClass"}
+                  className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <FaPlus className="text-xl font-medium text-gray-500"></FaPlus>
+                  <span className="ml-3">Add a class</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={"/dashboard/myClasses"}
+                  className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <FaListAlt className="text-xl font-medium text-gray-500"></FaListAlt>
+                  <span className="ml-3">My Classes</span>
+                </Link>
+              </li>
+            </ul>
+          )}
+
           {/* ----------- Link for admin ----------------------- */}
-          <ul className="space-y-2 font-medium">
-            <li>
-              <Link
-                to={"/dashboard/manageUsers"}
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <FaUserCheck className="text-xl font-medium text-gray-500"></FaUserCheck>
-                <span className="ml-3">Manage User</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={"/dashboard/manageClasses"}
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <FaListOl className="text-xl font-medium text-gray-500"></FaListOl>
-                <span className="ml-3">Manage Classes</span>
-              </Link>
-            </li>
-          </ul>
+          {isAdmin && (
+            <ul className="space-y-2 font-medium">
+              <li>
+                <Link
+                  to={"/dashboard/manageUsers"}
+                  className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <FaUserCheck className="text-xl font-medium text-gray-500"></FaUserCheck>
+                  <span className="ml-3">Manage User</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={"/dashboard/manageClasses"}
+                  className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <FaListOl className="text-xl font-medium text-gray-500"></FaListOl>
+                  <span className="ml-3">Manage Classes</span>
+                </Link>
+              </li>
+            </ul>
+          )}
+
           <hr className="my-10" />
           <ul className="space-y-2 font-medium">
             <li>
