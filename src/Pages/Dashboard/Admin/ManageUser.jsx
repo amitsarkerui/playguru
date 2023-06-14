@@ -71,68 +71,81 @@ const ManageUser = () => {
   return (
     <div>
       <h1 className="text-2xl font-bold text-center mb-6">Manage User</h1>
-      {
-        <div className="overflow-x-auto">
-          <table className="table">
-            <thead>
-              <tr>
+      <div className="overflow-x-auto">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>
+                <label>#</label>
+              </th>
+              <th>Name</th>
+              <th>Role</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user, index) => (
+              <tr key={user._id}>
                 <th>
-                  <label>#</label>
+                  <label>{index + 1}</label>
                 </th>
-                <th>Name</th>
-                <th>Role</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user, index) => (
-                <tr key={user._id}>
-                  <th>
-                    <label>{index + 1}</label>
-                  </th>
-                  <td>
-                    <div className="flex items-center space-x-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
-                          <img
-                            src={user.photoURL}
-                            alt="Avatar Tailwind CSS Component"
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <div className="font-bold">Name: {user.name}</div>
-                        <div className="text-sm opacity-50">
-                          Email: {user.email}
-                        </div>
+                <td>
+                  <div className="flex items-center space-x-3">
+                    <div className="avatar">
+                      <div className="mask mask-squircle w-12 h-12">
+                        <img
+                          src={user.photoURL}
+                          alt="Avatar Tailwind CSS Component"
+                        />
                       </div>
                     </div>
-                  </td>
-                  <td>
-                    <p className="bg-gray-200 px-3 py-1 rounded-full inline-block">
-                      {user.role}
-                    </p>
-                  </td>
-                  <td>
+                    <div>
+                      <div className="font-bold">Name: {user.name}</div>
+                      <div className="text-sm opacity-50">
+                        Email: {user.email}
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <p className="bg-gray-200 px-3 py-1 rounded-full inline-block">
+                    {user.role}
+                  </p>
+                </td>
+                <td>
+                  {!user.role.includes("instructor") ? (
                     <button
                       className="btn btn-xs btn-outline"
                       onClick={() => handleMakeInstructor(user._id)}
                     >
                       Make Instructor
                     </button>
+                  ) : (
+                    <button className="btn btn-xs btn-outline" disabled>
+                      Already Instructor
+                    </button>
+                  )}
+                  {!user.role.includes("admin") ? (
                     <button
                       className="ml-4 btn btn-xs btn-primary text-white"
                       onClick={() => handleMakeAdmin(user._id)}
                     >
                       Make Admin
                     </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      }
+                  ) : (
+                    <button
+                      className="ml-4 btn btn-xs btn-primary text-white"
+                      disabled
+                    >
+                      Already Admin
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
