@@ -48,13 +48,13 @@ const router = createBrowserRouter([
         path: "/users/:id",
         element: <SingleInstructor></SingleInstructor>,
         loader: ({ params }) =>
-          fetch(`http://localhost:3030/users/${params.id}`),
+          fetch(`https://play-guru-server.vercel.app/users/${params.id}`),
       },
       {
         path: "/instructors/users/:id",
         element: <SingleInstructor></SingleInstructor>,
         loader: ({ params }) =>
-          fetch(`http://localhost:3030/users/${params.id}`),
+          fetch(`https://play-guru-server.vercel.app/users/${params.id}`),
       },
       {
         path: "/allclasses",
@@ -68,13 +68,13 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3030/classes/${params.id}`),
+          fetch(`https://play-guru-server.vercel.app/classes/${params.id}`),
       },
       {
         path: "/allclasses/classes/:id",
         element: <SingleClass></SingleClass>,
         loader: ({ params }) =>
-          fetch(`http://localhost:3030/classes/${params.id}`),
+          fetch(`https://play-guru-server.vercel.app/classes/${params.id}`),
       },
       {
         path: "/login",

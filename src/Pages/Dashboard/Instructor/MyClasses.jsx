@@ -7,7 +7,7 @@ const MyClasses = () => {
   const { data: classes = [] } = useQuery({
     queryKey: ["classes"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3030/classes");
+      const res = await fetch("https://play-guru-server.vercel.app/classes");
       return res.json();
     },
   });

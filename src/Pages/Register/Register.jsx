@@ -54,7 +54,7 @@ const Register = () => {
                 photoURL: imgURL,
                 role: "student",
               };
-              fetch("http://localhost:3030/users", {
+              fetch("https://play-guru-server.vercel.app/users", {
                 method: "POST",
                 headers: {
                   "content-type": "application/json",
@@ -97,7 +97,7 @@ const Register = () => {
           photoURL: photoURL,
           role: "student",
         };
-        fetch("http://localhost:3030/users", {
+        fetch("https://play-guru-server.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",

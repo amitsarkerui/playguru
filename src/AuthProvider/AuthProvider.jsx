@@ -38,7 +38,7 @@ const AuthProvider = ({ children }) => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         axios
-          .post("http://localhost:3030/jwt", {
+          .post("https://play-guru-server.vercel.app/jwt", {
             email: currentUser.email,
           })
           .then((data) => {

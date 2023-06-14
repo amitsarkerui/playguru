@@ -6,13 +6,13 @@ const ManageUser = () => {
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3030/users");
+      const res = await fetch("https://play-guru-server.vercel.app/users");
       return res.json();
     },
   });
 
   const makeInstructorMutation = useMutation((userId) =>
-    fetch(`http://localhost:3030/users/${userId}`, {
+    fetch(`https://play-guru-server.vercel.app/users/${userId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -22,7 +22,7 @@ const ManageUser = () => {
   );
 
   const makeAdminMutation = useMutation((userId) =>
-    fetch(`http://localhost:3030/users/${userId}`, {
+    fetch(`https://play-guru-server.vercel.app/users/${userId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

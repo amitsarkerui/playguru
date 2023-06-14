@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContextProvider } from "../AuthProvider/AuthProvider";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:3030/",
+  baseURL: "https://play-guru-server.vercel.app/",
 });
 
 const useAxiosSecure = () => {
