@@ -1,5 +1,5 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const ManageClasses = () => {
@@ -31,12 +31,48 @@ const ManageClasses = () => {
     }
   );
 
-  const handleApprove = (classId) => {
+  const [showModal, setShowModal] = useState(false);
+  const [classId, setClassId] = useState(null);
+
+  const handleApprove = (classId, event) => {
+    event.stopPropagation();
+    event.preventDefault();
     updateStatusMutation.mutate({ classId, status: "approved" });
+    sendFeedback(classId, event);
   };
 
-  const handleReject = (classId) => {
+  const handleReject = (classId, event) => {
+    event.stopPropagation();
+    event.preventDefault();
     updateStatusMutation.mutate({ classId, status: "rejected" });
+    sendFeedback(classId, event);
+  };
+
+  const openModal = (classId) => {
+    setShowModal(true);
+    setClassId(classId);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setClassId(null);
+  };
+
+  const sendFeedback = (classId, event) => {
+    event.preventDefault();
+    const feedbackText = event.target.elements.feedbackInput.value;
+
+    axiosSecure
+      .patch(`/classes/${classId}`, {
+        feedback: feedbackText,
+      })
+      .then((response) => {
+        console.log("Feedback sent successfully");
+        closeModal();
+      })
+      .catch((error) => {
+        console.error("Failed to send feedback", error);
+      });
   };
 
   return (
@@ -78,7 +114,7 @@ const ManageClasses = () => {
                   </div>
                 </td>
                 <td>
-                  Price : {cls.price}
+                  Price: {cls.price}
                   <br />
                   <span className="badge badge-ghost badge-sm">
                     Total Seat: {cls.capacity}
@@ -102,24 +138,22 @@ const ManageClasses = () => {
                 <th>
                   <button
                     className="btn btn-outline btn-xs"
-                    onClick={() => handleApprove(cls._id)}
-                    disabled={
-                      cls.status === "approved" || cls.status === "rejected"
-                    }
+                    onClick={(event) => handleApprove(cls._id, event)}
+                    disabled={cls.status === "approved"}
                   >
                     Approve
                   </button>
                   <button
                     className="btn btn-outline btn-xs mx-3"
-                    onClick={() => handleReject(cls._id)}
-                    disabled={
-                      cls.status === "approved" || cls.status === "rejected"
-                    }
+                    onClick={(event) => handleReject(cls._id, event)}
+                    disabled={cls.status === "rejected"}
                   >
                     Reject
                   </button>
-
-                  <button className="btn btn-primary btn-xs text-white">
+                  <button
+                    className="btn btn-primary btn-xs text-white"
+                    onClick={() => openModal(cls._id)}
+                  >
                     Feedback
                   </button>
                 </th>
@@ -128,6 +162,49 @@ const ManageClasses = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Feedback Modal */}
+      {showModal && classId && (
+        <div
+          id="authentication-modal"
+          tabIndex="-1"
+          aria-hidden="true"
+          className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center w-full h-full"
+        >
+          <div className="modal-content bg-white rounded-lg shadow-md dark:bg-gray-700">
+            <div className="px-6 py-6 lg:px-8">
+              <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
+                Please provide your feedback
+              </h3>
+              <form
+                className="space-y-6"
+                onSubmit={(event) => sendFeedback(classId, event)}
+              >
+                <div>
+                  <textarea
+                    name="feedbackInput"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                    placeholder="Type your feedback here"
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                  Send
+                </button>
+              </form>
+              <button
+                onClick={closeModal}
+                className="w-full mt-2 text-white bg-gray-500 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -67,7 +67,7 @@ const ManageUser = () => {
     });
   };
 
-  console.log(users);
+  // console.log(users);
   return (
     <div>
       <h1 className="text-2xl font-bold text-center mb-6">Manage User</h1>

@@ -26,6 +26,7 @@ import InstructorRoute from "./Routes/InstructorRoute.jsx";
 import MyClasses from "./Pages/Dashboard/Instructor/Myclasses.jsx";
 import ManageUser from "./Pages/Dashboard/Admin/ManageUser.jsx";
 import ManageClasses from "./Pages/Dashboard/Admin/ManageClasses.jsx";
+import StudentRoute from "./Routes/StudentRoute.jsx";
 
 const queryClient = new QueryClient();
 
@@ -91,7 +92,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard/selectedClass",
-        element: <SelectedClass></SelectedClass>,
+        element: (
+          <StudentRoute>
+            <SelectedClass></SelectedClass>
+          </StudentRoute>
+        ),
       },
       {
         path: "/dashboard/payment/:id",
@@ -99,11 +104,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/enrollClass",
-        element: <EnrollClass></EnrollClass>,
+        element: (
+          <StudentRoute>
+            <EnrollClass></EnrollClass>
+          </StudentRoute>
+        ),
       },
       {
         path: "/dashboard/paymentHistory",
-        element: <PaymentHistory></PaymentHistory>,
+        element: (
+          <StudentRoute>
+            <PaymentHistory></PaymentHistory>
+          </StudentRoute>
+        ),
       },
       {
         path: "/dashboard/addClass",

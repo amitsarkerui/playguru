@@ -62,9 +62,19 @@ const MyClasses = () => {
                     </span>
                   </td>
                   <td>
-                    <p className="bg-primary text-white inline-block px-3 py-1 rounded-full">
-                      {sc?.status}
-                    </p>
+                    {sc.status === "approved" ? (
+                      <p className="bg-success text-white px-3 py-1 rounded-full inline-block">
+                        {sc.status}
+                      </p>
+                    ) : sc.status === "pending" ? (
+                      <p className="bg-primary text-white px-3 py-1 rounded-full inline-block">
+                        {sc.status}
+                      </p>
+                    ) : (
+                      <p className="bg-red-600 text-white px-3 py-1 rounded-full inline-block">
+                        {sc.status}
+                      </p>
+                    )}
                   </td>
                   <th>
                     <p>{sc.feedback ? sc.feedback : "No Feedback"}</p>

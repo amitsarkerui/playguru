@@ -9,7 +9,7 @@ const useInstructorRole = () => {
 
   const { data: isInstructor, isLoading: isInstructorLoading } = useQuery({
     queryKey: ["isInstructor", user?.email],
-    enabled: !loading,
+    enabled: !loading && !!user,
     queryFn: async () => {
       const res = await axiosSecure.get(`/users/instructor/${user?.email}`);
       return res.data.instructor;

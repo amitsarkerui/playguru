@@ -3,11 +3,17 @@ import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/logo/Logo.png";
 import { AuthContextProvider } from "../AuthProvider/AuthProvider";
 import useCart from "../hooks/useCart";
+import useAdmin from "../hooks/useAdmin";
+import useInstructorRole from "../hooks/useInstructorRole";
+import useStudent from "../hooks/useStudent";
 
 const Navbar = () => {
   const [isUserDropdownOpen, setUserDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const [isAdmin] = useAdmin();
+  const [isInstructor] = useInstructorRole();
+  const [isStudent] = useStudent();
   const { user, logOut } = useContext(AuthContextProvider);
   const [cart] = useCart();
   // console.log(user);
@@ -101,14 +107,33 @@ const Navbar = () => {
                     </span>
                   </div>
                   <ul className="py-2" aria-labelledby="user-menu-button">
-                    <li>
-                      <a
-                        href="#"
+                    {isStudent ? (
+                      <Link
+                        to={"/dashboard/selectedClass"}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                       >
                         Dashboard
-                      </a>
-                    </li>
+                      </Link>
+                    ) : (
+                      <>
+                        {isAdmin ? (
+                          <Link
+                            to={"/dashboard/manageUsers"}
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                          >
+                            Dashboard
+                          </Link>
+                        ) : (
+                          <Link
+                            to={"/dashboard/myClasses"}
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                          >
+                            Dashboard
+                          </Link>
+                        )}
+                      </>
+                    )}
+
                     <li>
                       <a
                         onClick={handleSignOut}
