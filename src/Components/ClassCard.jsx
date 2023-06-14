@@ -20,7 +20,7 @@ const ClassCard = ({ singleClass }) => {
     image_url,
   } = singleClass || {};
 
-  const availableSeat = capacity - enrolledStudents;
+  const availableSeat = parseInt(capacity) - parseInt(enrolledStudents);
 
   // Add to cart ------------------------------>
   const handleAddToCart = (singleClass) => {

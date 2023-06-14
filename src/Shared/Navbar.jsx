@@ -34,7 +34,7 @@ const Navbar = () => {
     logOut();
   };
   return (
-    <nav className="container mx-auto bg-white border-gray-200 dark:bg-gray-900">
+    <nav className="fixed top-0 left-0 right-0 z-10 bg-white border-gray-200 dark:bg-gray-900">
       <div className="flex flex-wrap items-center justify-between mx-auto py-6 px-2">
         <Link to={"/"} className="flex items-center">
           <img src={logo} className="h-12 mr-3" alt="Play Guru Logo" />

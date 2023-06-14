@@ -2,7 +2,7 @@ import React from "react";
 
 const SectionBanner = ({ bannerTitle }) => {
   return (
-    <div>
+    <div className="mt-32">
       <nav
         className="relative flex bg-cover bg-center"
         style={{

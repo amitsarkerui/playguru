@@ -39,7 +39,7 @@ const CheckoutForm = ({ cart, price }) => {
   };
 
   useEffect(() => {
-    if (price > 0) {
+    if (parseInt(price) > 0) {
       axiosSecure.post("/create-payment-intent", { price }).then((res) => {
         setClientSecret(res.data.clientSecret);
       });

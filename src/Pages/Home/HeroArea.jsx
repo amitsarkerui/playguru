@@ -4,7 +4,7 @@ import { Carousel } from "react-responsive-carousel";
 
 const HeroArea = () => {
   return (
-    <div className="h-[700px] rounded-2xl">
+    <div className="h-[700px] rounded-2xl mt-32">
       <Carousel
         autoPlay={true}
         infiniteLoop={true}
