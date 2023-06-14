@@ -103,17 +103,22 @@ const ManageClasses = () => {
                   <button
                     className="btn btn-outline btn-xs"
                     onClick={() => handleApprove(cls._id)}
-                    disabled={cls.status === "approved"}
+                    disabled={
+                      cls.status === "approved" || cls.status === "rejected"
+                    }
                   >
                     Approve
                   </button>
                   <button
                     className="btn btn-outline btn-xs mx-3"
                     onClick={() => handleReject(cls._id)}
-                    disabled={cls.status === "rejected"}
+                    disabled={
+                      cls.status === "approved" || cls.status === "rejected"
+                    }
                   >
-                    Rejected
+                    Reject
                   </button>
+
                   <button className="btn btn-primary btn-xs text-white">
                     Feedback
                   </button>
