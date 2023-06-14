@@ -153,6 +153,7 @@ const ManageClasses = () => {
                   <button
                     className="btn btn-primary btn-xs text-white"
                     onClick={() => openModal(cls._id)}
+                    disabled={cls.status === "approved"}
                   >
                     Feedback
                   </button>

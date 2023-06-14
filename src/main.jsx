@@ -27,6 +27,7 @@ import MyClasses from "./Pages/Dashboard/Instructor/Myclasses.jsx";
 import ManageUser from "./Pages/Dashboard/Admin/ManageUser.jsx";
 import ManageClasses from "./Pages/Dashboard/Admin/ManageClasses.jsx";
 import StudentRoute from "./Routes/StudentRoute.jsx";
+import Page404 from "./Pages/Page404/Page404.jsx";
 
 const queryClient = new QueryClient();
 
@@ -151,6 +152,10 @@ const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "*",
+    element: <Page404></Page404>,
   },
 ]);
 
