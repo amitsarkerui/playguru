@@ -25,6 +25,7 @@ import AddClass from "./Pages/Dashboard/Instructor/AddClass.jsx";
 import InstructorRoute from "./Routes/InstructorRoute.jsx";
 import MyClasses from "./Pages/Dashboard/Instructor/Myclasses.jsx";
 import ManageUser from "./Pages/Dashboard/Admin/ManageUser.jsx";
+import ManageClasses from "./Pages/Dashboard/Admin/ManageClasses.jsx";
 
 const queryClient = new QueryClient();
 
@@ -125,6 +126,14 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <ManageUser></ManageUser>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/manageClasses",
+        element: (
+          <AdminRoute>
+            <ManageClasses></ManageClasses>
           </AdminRoute>
         ),
       },
